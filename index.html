@@ -1,29 +1,13 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Emmanuel Ovie - Unmasking the Magic</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff;
-      color: #111;
-    }
-    header, section, footer {
-      padding: 60px 20px;
-      text-align: center;
-    }
-    header {
-      background: linear-gradient(135deg, #000, #e63946);
-      color: white;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f0f8ff; color: #111; }
+    header, section, footer { padding: 60px 20px; text-align: center; }
+    header { background: linear-gradient(135deg, #4682b4, #ffffff); color: #111; }
     header img {
       border-radius: 50%;
       width: 180px;
@@ -31,88 +15,116 @@
       object-fit: cover;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    h1 {
-      font-size: 2.5em;
-      margin: 20px 0 10px;
-    }
-    h2 {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1.1em;
-      margin: 10px 0;
-      color: #444;
-    }
+    h1 { font-size: 2.5em; margin: 20px 0 10px; }
+    h2 { font-size: 2em; margin-bottom: 10px; }
+    p { font-size: 1.1em; margin: 10px 0; color: #333; }
     a.button, button {
-      display: inline-block;
-      margin: 20px 10px 0;
-      padding: 10px 20px;
-      background-color: #111;
-      color: white;
-      text-decoration: none;
-      border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      cursor: pointer;
+      display: inline-block; margin: 20px 10px 0; padding: 10px 20px;
+      background-color: #4682b4; color: white; text-decoration: none;
+      border: none; border-radius: 8px; font-size: 1em; cursor: pointer;
     }
-    a.button:hover, button:hover {
-      background-color: #e63946;
-    }
+    a.button:hover, button:hover { background-color: #5a9bd4; }
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: #111;
-      padding: 10px 0;
-      text-align: center;
-      z-index: 1000;
+      position: fixed; top: 0; width: 100%; background-color: #4682b4;
+      padding: 10px 0; text-align: center; z-index: 1000;
     }
     nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
+      color: white; margin: 0 15px; text-decoration: none; font-weight: bold;
     }
-    nav a:hover {
-      color: #e63946;
+    nav a:hover { color: #e0f0ff; }
+    footer { background-color: #4682b4; color: white; }
+    form.contact-form {
+      max-width: 500px; margin: auto; text-align: left;
     }
-    footer {
-      background-color: #111;
-      color: white;
+    form.contact-form input, form.contact-form textarea {
+      width: 100%; padding: 10px; margin: 10px 0;
+      border: 1px solid #ccc; border-radius: 6px;
     }
+    form.contact-form button {
+      width: 100%; background-color: #4682b4;
+    }
+    #welcome { font-size: 1.5em; color: #2e5984; margin-top: 20px; }
   </style>
 </head>
 <body>
-
   <nav>
     <a href="#hero">Home</a>
     <a href="#about">About</a>
     <a href="#socials">TikTok</a>
-    <a href="login.html">Login</a>
-  </nav>
-
-  <header id="hero">
+    <a href="#contact">Contact</a>
+    <a href="#auth">Login/Signup</a>
+  </nav>  <header id="hero">
     <img src="profile.jpg" alt="Emmanuel Ovie" />
     <h1>Emmanuel Ovie</h1>
     <p>Unmasking the Magic</p>
-  </header>
-
-  <section id="about">
+    <div id="welcome"></div>
+  </header>  <section id="about">
     <h2>About Me</h2>
     <p>The Masks</p>
-  </section>
-
-  <section id="socials">
+  </section>  <section id="socials">
     <h2>Find Me On TikTok</h2>
-    <p>
-      <a class="button" href="https://www.tiktok.com/@iamovie100" target="_blank">@iamovie100</a>
-    </p>
-  </section>
-
-  <footer>
+    <p><a class="button" href="https://www.tiktok.com/@iamovie100" target="_blank">@iamovie100</a></p>
+  </section>  <section id="contact">
+    <h2>Contact Me</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>  <section id="auth">
+    <h2>Login or Sign Up</h2>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <br>
+    <button onclick="signup()">Sign Up</button>
+    <button onclick="login()">Login</button>
+    <button onclick="logout()">Logout</button>
+  </section>  <footer>
     <p>© 2025 Emmanuel Ovie. All rights reserved.</p>
-  </footer>
+  </footer>  <!-- Firebase -->  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-</body>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC-jkprb3q5cuAiYgzqzIJqJpmBBDYkq_A",
+      authDomain: "ovie-fc407.firebaseapp.com",
+      projectId: "ovie-fc407",
+      storageBucket: "ovie-fc407.firebasestorage.app",
+      messagingSenderId: "338463946940",
+      appId: "1:338463946940:web:0ad5339b826da6eb1738b9",
+      measurementId: "G-MTRF7WGSED"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const welcome = document.getElementById("welcome");
+
+    function signup() {
+      createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+        .then(userCredential => alert("Signed up successfully!"))
+        .catch(error => alert(error.message));
+    }
+
+    function login() {
+      signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+        .then(userCredential => alert("Logged in successfully!"))
+        .catch(error => alert(error.message));
+    }
+
+    function logout() {
+      signOut(auth).then(() => alert("Logged out."));
+    }
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        welcome.textContent = `Welcome, ${user.email}`;
+      } else {
+        welcome.textContent = "";
+      }
+    });
+  </script></body>
 </html>
