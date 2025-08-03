@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Users - Ovie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #000;
+      color: white;
+    }
+    nav {
+      background: #1a1a1a;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav img {
+      height: 40px;
+    }
+    nav a {
+      color: #00acee;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 600;
+    }
+    nav a:hover {
+      color: #fff;
+    }
+    .container {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #00acee;
+    }
+    .user-card {
+      background: #1f1f1f;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .user-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #fff;
+    }
+    .user-info {
+      flex-grow: 1;
+      margin-left: 15px;
+    }
+    .user-info h3 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .user-info p {
+      font-size: 1rem;
+      color: #888;
+    }
+    .view-profile {
+      background: #00acee;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .view-profile:hover {
+      background: #008ecf;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_Ovie.png/120px-Logo_Ovie.png" alt="Logo">
+    <div>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about-you.html">About You</a>
+    </div>
+  </nav>  <div class="container">
+    <h1>Explore Users</h1>
+    <div id="userList"></div>
+  </div>  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC-jkprb3q5cuAiYgzqzIJqJpmBBDYkq_A",
+      authDomain: "ovie-fc407.firebaseapp.com",
+      projectId: "ovie-fc407",
+      storageBucket: "ovie-fc407.appspot.com",
+      messagingSenderId: "338463946940",
+      appId: "1:338463946940:web:0ad5339b826da6eb1738b9",
+      measurementId: "G-MTRF7WGSED"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const userList = document.getElementById('userList');
+
+    async function fetchUsers() {
+      const querySnapshot = await getDocs(collection(db, "profiles"));
+      querySnapshot.forEach(doc => {
+        const userData = doc.data();
+        const profileImage = userData.photo || "https://via.placeholder.com/80";
+        const userCard = document.createElement('div');
+        userCard.classList.add('user-card');
+        userCard.innerHTML = `
+          <img src="${profileImage}" alt="Profile Image">
+          <div class="user-info">
+            <h3>${userData.username}</h3>
+            <p>${userData.bio || 'No bio available.'}</p>
+          </div>
+          <a href="profile.html?uid=${doc.id}" class="view-profile">View Profile</a>
+        `;
+        userList.appendChild(userCard);
+      });
+    }
+
+    fetchUsers();
+  </script></body>
+</html>
