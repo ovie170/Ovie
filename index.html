@@ -1,54 +1,118 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Emmanuel Ovie - The Masks</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emmanuel Ovie - Unmasking the Magic</title>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fefefe;
-      color: #222;
-      text-align: center;
-      padding: 40px;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
     }
-    img {
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff;
+      color: #111;
+    }
+    header, section, footer {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    header {
+      background: linear-gradient(135deg, #000, #e63946);
+      color: white;
+    }
+    header img {
       border-radius: 50%;
-      width: 220px;
-      height: 220px;
+      width: 180px;
+      height: 180px;
       object-fit: cover;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     h1 {
       font-size: 2.5em;
-      margin-top: 20px;
-      color: #e63946;
+      margin: 20px 0 10px;
+    }
+    h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
     }
     p {
-      font-size: 1.2em;
-      margin: 10px 0 20px;
+      font-size: 1.1em;
+      margin: 10px 0;
       color: #444;
     }
-    a {
+    a.button, button {
       display: inline-block;
-      margin-top: 10px;
+      margin: 20px 10px 0;
       padding: 10px 20px;
-      background-color: #000;
-      color: #fff;
+      background-color: #111;
+      color: white;
       text-decoration: none;
+      border: none;
       border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
     }
-    a:hover {
+    a.button:hover, button:hover {
       background-color: #e63946;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #111;
+      padding: 10px 0;
+      text-align: center;
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #e63946;
+    }
+    footer {
+      background-color: #111;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <img src="profile.jpg" alt="Emmanuel Ovie">
-  <h1>Unmasking the Magic</h1>
-  <p><strong>Emmanuel Ovie</strong></p>
-  <p>The Masks</p>
-  <a href="https://www.tiktok.com/@iamovie100" target="_blank">@iamovie100 on TikTok</a>
+
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#socials">TikTok</a>
+    <a href="login.html">Login</a>
+  </nav>
+
+  <header id="hero">
+    <img src="profile.jpg" alt="Emmanuel Ovie" />
+    <h1>Emmanuel Ovie</h1>
+    <p>Unmasking the Magic</p>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>The Masks</p>
+  </section>
+
+  <section id="socials">
+    <h2>Find Me On TikTok</h2>
+    <p>
+      <a class="button" href="https://www.tiktok.com/@iamovie100" target="_blank">@iamovie100</a>
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2025 Emmanuel Ovie. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
