@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Masks - Chat List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    header {
+      background-color: #0a0a0a;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      border-bottom: 1px solid #111;
+      color: #00acee;
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background-color: #111;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .item:hover {
+      background-color: #1a1a1a;
+    }
+    .item img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .item span {
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>💬 The Masks Chat</header>
+
+  <div class="list">
+    <!-- AI Characters -->
+    <div class="item" onclick="startChat('Mask Man', true)">
+      <img src="https://i.ibb.co/1Tm5RnH/maskman.jpg" alt="Mask Man">
+      <span>Mask Man 🕶️</span>
+    </div>
+    <div class="item" onclick="startChat('Nina the Explorer', true)">
+      <img src="https://i.ibb.co/LPsb4gC/nina.jpg" alt="Nina">
+      <span>Nina the Explorer 🌍</span>
+    </div>
+    <div class="item" onclick="startChat('TechWiz', true)">
+      <img src="https://i.ibb.co/yX0SqtT/techwiz.jpg" alt="TechWiz">
+      <span>TechWiz 🤖</span>
+    </div>
+
+    <!-- Real Users -->
+    <div class="item" onclick="startChat('User123', false)">
+      <img src="https://i.ibb.co/G0JjPb0/user-avatar.png" alt="User">
+      <span>User123</span>
+    </div>
+    <div class="item" onclick="startChat('Emmy Vibes', false)">
+      <img src="https://i.ibb.co/q1Yw1Db/emmy.jpg" alt="Emmy Vibes">
+      <span>Emmy Vibes</span>
+    </div>
+  </div>
+
+  <script>
+    function startChat(name, isAI) {
+      const type = isAI ? 'ai' : 'user';
+      window.location.href = `chat.html?name=${encodeURIComponent(name)}&type=${type}`;
+    }
+  </script>
+</body>
+</html>
