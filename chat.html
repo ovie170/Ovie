@@ -1,212 +1,257 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MaskChat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaskChat - The Masks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #0b141a;
-      color: #fff;
+      background-color: #000;
+      color: white;
       display: flex;
       height: 100vh;
+      overflow: hidden;
     }
     .sidebar {
-      width: 250px;
-      background: #202c33;
+      width: 260px;
+      background: #111;
+      border-right: 1px solid #222;
+      display: flex;
+      flex-direction: column;
       padding: 1rem;
-      overflow-y: auto;
+      gap: 1rem;
     }
     .sidebar h2 {
-      font-size: 1.2rem;
+      color: #00acee;
       margin-bottom: 1rem;
-      color: #25d366;
     }
     .user {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px;
+      padding: 0.6rem;
       border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s ease;
     }
     .user:hover {
-      background: #2a3942;
+      background: #222;
     }
     .user img {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
     }
-    .user span {
-      font-weight: 600;
-    }
-    .chat-area {
+    .chatbox {
       flex: 1;
       display: flex;
       flex-direction: column;
-      background: #111b21;
-    }
-    .chat-header {
-      padding: 1rem;
-      background: #202c33;
-      display: flex;
+      background-color: #000;
+      justify-content: center;
       align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid #1c2c32;
     }
-    .chat-header img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-    .chat-header span {
-      font-weight: bold;
+    .chat-area {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      width: 100%;
+      padding: 1rem;
     }
     .messages {
       flex: 1;
-      padding: 1rem;
       overflow-y: auto;
+      padding-bottom: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 10px;
     }
     .bubble {
-      max-width: 70%;
-      padding: 0.7rem 1rem;
-      border-radius: 12px;
-      font-size: 0.95rem;
+      padding: 0.6rem 1rem;
+      border-radius: 20px;
+      max-width: 65%;
+      margin-bottom: 10px;
+      word-wrap: break-word;
     }
-    .from-user {
-      align-self: flex-end;
-      background: #005c4b;
-      color: #fff;
-      border-bottom-right-radius: 0;
+    .bubble img {
+      max-width: 100%;
+      border-radius: 10px;
     }
     .from-ai {
+      background: #111;
       align-self: flex-start;
-      background: #202c33;
-      border-bottom-left-radius: 0;
+    }
+    .from-user {
+      background: #00acee;
+      color: white;
+      align-self: flex-end;
     }
     .input-area {
       display: flex;
-      padding: 1rem;
-      background: #202c33;
       gap: 10px;
+      align-items: center;
     }
     .input-area input {
       flex: 1;
       padding: 0.7rem;
-      border-radius: 25px;
+      border-radius: 20px;
       border: none;
-      background: #2a3942;
+      background: #1c1c1c;
       color: white;
     }
     .input-area button {
-      background: #25d366;
+      background: #00acee;
       border: none;
-      padding: 0.7rem 1.2rem;
-      border-radius: 25px;
-      color: white;
+      padding: 0.7rem 1rem;
+      border-radius: 20px;
       cursor: pointer;
+    }
+    .input-area input[type=file] {
+      display: none;
+    }
+    .emoji-toggle {
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    .welcome-text {
+      text-align: center;
+      color: #666;
+      font-size: 1.1rem;
+      padding: 2rem;
     }
   </style>
 </head>
 <body>
   <div class="sidebar">
-    <h2>💬 Mask Chat</h2>
-    <div class="user" onclick="startChat('Mask Man', 'https://i.ibb.co/1Tm5RnH/maskman.jpg')">
-      <img src="https://i.ibb.co/1Tm5RnH/maskman.jpg" alt="Mask Man"/>
-      <span>Mask Man</span>
+    <h2>Mask Chat</h2>
+    <div class="user" onclick="startChat('Nina the Explorer')">
+      <img src="https://i.ibb.co/LPsb4gC/nina.jpg" alt="Nina">
+      <div>Nina the Explorer</div>
     </div>
-    <div class="user" onclick="startChat('Nina the Explorer', 'https://i.ibb.co/LPsb4gC/nina.jpg')">
-      <img src="https://i.ibb.co/LPsb4gC/nina.jpg" alt="Nina"/>
-      <span>Nina</span>
+    <div class="user" onclick="startChat('Blaze')">
+      <img src="https://i.ibb.co/MZbdQJg/blaze.jpg" alt="Blaze">
+      <div>Blaze</div>
     </div>
-    <div class="user" onclick="startChat('Blaze', 'https://i.ibb.co/MZbdQJg/blaze.jpg')">
-      <img src="https://i.ibb.co/MZbdQJg/blaze.jpg" alt="Blaze"/>
-      <span>Blaze</span>
+    <div class="user" onclick="startChat('TechWiz')">
+      <img src="https://i.ibb.co/yX0SqtT/techwiz.jpg" alt="TechWiz">
+      <div>TechWiz</div>
     </div>
-    <div class="user" onclick="startChat('TechWiz', 'https://i.ibb.co/yX0SqtT/techwiz.jpg')">
-      <img src="https://i.ibb.co/yX0SqtT/techwiz.jpg" alt="TechWiz"/>
-      <span>TechWiz</span>
+    <div class="user" onclick="startChat('Zara')">
+      <img src="https://i.ibb.co/jRZzzd6/zara.jpg" alt="Zara">
+      <div>Zara</div>
     </div>
-    <div class="user" onclick="startChat('Zara', 'https://i.ibb.co/jRZzzd6/zara.jpg')">
-      <img src="https://i.ibb.co/jRZzzd6/zara.jpg" alt="Zara"/>
-      <span>Zara</span>
+    <div class="user" onclick="startChat('Mask Man')">
+      <img src="https://i.ibb.co/1Tm5RnH/maskman.jpg" alt="Mask Man">
+      <div>Mask Man</div>
     </div>
+    <div class="user" onclick="startChat('Nova the Poet')">
+      <img src="https://i.ibb.co/DV92djc/poet.jpg" alt="Nova">
+      <div>Nova the Poet</div>
+    </div>
+    <div class="user" onclick="startChat('Lana the Tech Queen')">
+      <img src="https://i.ibb.co/TW9bMCs/lana.jpg" alt="Lana">
+      <div>Lana the Tech Queen</div>
+    </div>
+  </div>  <div class="chatbox">
+    <div id="welcomeScreen" class="welcome-text">
+      <h2>Welcome to The Mask Chat 👻</h2>
+      <p>Select a user from the sidebar to start chatting</p>
+    </div><div id="chatArea" class="chat-area">
+  <div class="messages" id="messages"></div>
+  <div class="input-area">
+    <button class="emoji-toggle" onclick="toggleEmoji()">😀</button>
+    <input type="text" id="messageInput" placeholder="Type your message...">
+    <input type="file" id="imageInput" accept="image/*" onchange="sendImage(event)">
+    <button onclick="document.getElementById('imageInput').click()">📷</button>
+    <button onclick="sendMessage()">Send</button>
   </div>
+  <emoji-picker style="display: none;" id="emojiPicker"></emoji-picker>
+</div>
 
-  <div class="chat-area">
-    <div class="chat-header">
-      <img id="chatAvatar" src="https://i.ibb.co/1Tm5RnH/maskman.jpg" alt="Avatar"/>
-      <span id="chatName">Select a contact</span>
-    </div>
-    <div class="messages" id="messages">
-      <div class="bubble from-ai">Welcome to Mask Chat 👋</div>
-    </div>
-    <div class="input-area">
-      <input type="text" id="messageInput" placeholder="Type your message..."/>
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </div>
-
-  <script>
+  </div>  <script>
+    let currentAI = null;
     const apiUrl = "https://maskchat.glitch.me";
-    let currentAI = "Mask Man";
 
-    function startChat(name, avatarUrl) {
+    const emojiPicker = document.getElementById('emojiPicker');
+    const input = document.getElementById('messageInput');
+
+    emojiPicker.addEventListener('emoji-click', e => {
+      input.value += e.detail.unicode;
+      emojiPicker.style.display = 'none';
+    });
+
+    function toggleEmoji() {
+      emojiPicker.style.display = emojiPicker.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function startChat(name) {
       currentAI = name;
-      document.getElementById('chatName').textContent = name;
-      document.getElementById('chatAvatar').src = avatarUrl;
-
-      const msgArea = document.getElementById('messages');
-      msgArea.innerHTML = `<div class="bubble from-ai">Hey, I'm <strong>${name}</strong>. Let’s chat!</div>`;
+      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('chatArea').style.display = 'flex';
+      const messages = document.getElementById('messages');
+      messages.innerHTML = `
+        <div class='bubble from-ai'>Hi, I’m <strong>${name}</strong>. Let’s chat!</div>
+      `;
     }
 
     async function sendMessage() {
-      const input = document.getElementById("messageInput");
       const text = input.value.trim();
       if (!text || !currentAI) return;
 
-      const msgArea = document.getElementById("messages");
+      const messages = document.getElementById('messages');
 
-      const userBubble = document.createElement("div");
-      userBubble.className = "bubble from-user";
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bubble from-user';
       userBubble.textContent = text;
-      msgArea.appendChild(userBubble);
+      messages.appendChild(userBubble);
 
-      const aiBubble = document.createElement("div");
-      aiBubble.className = "bubble from-ai";
+      const aiBubble = document.createElement('div');
+      aiBubble.className = 'bubble from-ai';
       aiBubble.textContent = `${currentAI} is typing...`;
-      msgArea.appendChild(aiBubble);
+      messages.appendChild(aiBubble);
 
-      input.value = "";
-      msgArea.scrollTop = msgArea.scrollHeight;
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
 
       try {
-        const res = await fetch(apiUrl, {
-          method: "POST",
+        const response = await fetch(apiUrl, {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ message: text, ai: currentAI })
+          body: JSON.stringify({
+            message: text,
+            ai: currentAI
+          })
         });
-        const data = await res.json();
-        aiBubble.textContent = data.reply || "Hmm... try again?";
-      } catch (err) {
-        aiBubble.textContent = "Something went wrong 😢";
+        const data = await response.json();
+        aiBubble.textContent = `${currentAI}: ${data.reply}`;
+      } catch (error) {
+        aiBubble.textContent = 'Oops, something went wrong.';
       }
-
-      msgArea.scrollTop = msgArea.scrollHeight;
     }
-  </script>
-</body>
+
+    function sendImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const messages = document.getElementById('messages');
+        const userBubble = document.createElement('div');
+        userBubble.className = 'bubble from-user';
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        userBubble.appendChild(img);
+        messages.appendChild(userBubble);
+        messages.scrollTop = messages.scrollHeight;
+      }
+      reader.readAsDataURL(file);
+    }
+  </script></body>
 </html>
