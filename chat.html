@@ -1,45 +1,169 @@
-﻿<script>
-let currentAI = null;
+﻿<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - The Masks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      font-family: 'Inter', sans-serif;
+      background-color: #000;
+      color: white;
+    }
+    .sidebar {
+      width: 240px;
+      background: #111;
+      height: 100vh;
+      border-right: 1px solid #222;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .sidebar h2 {
+      color: #00acee;
+    }
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .user:hover {
+      background: #222;
+    }
+    .user img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .chatbox {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+    }
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 1rem;
+    }
+    .bubble {
+      padding: 0.7rem 1rem;
+      border-radius: 20px;
+      max-width: 60%;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    .from-ai {
+      background: #111;
+      align-self: flex-start;
+    }
+    .from-user {
+      background: #00acee;
+      color: white;
+      align-self: flex-end;
+    }
+    .input-area {
+      display: flex;
+      gap: 10px;
+    }
+    .input-area input {
+      flex: 1;
+      padding: 0.7rem;
+      border-radius: 20px;
+      border: none;
+      background: #1c1c1c;
+      color: white;
+    }
+    .input-area button {
+      background: #00acee;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Chat With</h2>
+    <div class="user" onclick="startChat('Nina the Explorer')">
+      <img src="https://i.ibb.co/LPsb4gC/nina.jpg" alt="Nina">
+      <div>Nina the Explorer</div>
+    </div>
+    <div class="user" onclick="startChat('Blaze')">
+      <img src="https://i.ibb.co/MZbdQJg/blaze.jpg" alt="Blaze">
+      <div>Blaze</div>
+    </div>
+    <div class="user" onclick="startChat('TechWiz')">
+      <img src="https://i.ibb.co/yX0SqtT/techwiz.jpg" alt="TechWiz">
+      <div>TechWiz</div>
+    </div>
+    <div class="user" onclick="startChat('Zara')">
+      <img src="https://i.ibb.co/jRZzzd6/zara.jpg" alt="Zara">
+      <div>Zara</div>
+    </div>
+    <div class="user" onclick="startChat('Mask Man')">
+      <img src="https://i.ibb.co/1Tm5RnH/maskman.jpg" alt="Mask Man">
+      <div>Mask Man</div>
+    </div>
+  </div>  <div class="chatbox">
+    <div class="messages" id="messages">
+      <div class="bubble from-ai">Welcome! Pick someone to start chatting.</div>
+    </div>
+    <div class="input-area">
+      <input type="text" id="messageInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>  <script>
+    let currentAI = null;
 
-function startChat(name) {
-  currentAI = name;
-  const messages = document.getElementById('messages');
-  messages.innerHTML = `
-    <div class='bubble from-ai'>Hi, I’m <strong>${name}</strong>. Let’s chat!</div>
-  `;
-}
+    function startChat(name) {
+      currentAI = name;
+      const messages = document.getElementById('messages');
+      messages.innerHTML = `
+        <div class='bubble from-ai'>Hi, I’m <strong>${name}</strong>. Let’s chat!</div>
+      `;
+    }
 
-function sendMessage() {
-  const input = document.getElementById('messageInput');
-  const text = input.value.trim();
-  if (!text || !currentAI) return;
+    function sendMessage() {
+      const input = document.getElementById('messageInput');
+      const text = input.value.trim();
+      if (!text || !currentAI) return;
 
-  const messages = document.getElementById('messages');
+      const messages = document.getElementById('messages');
 
-  const userBubble = document.createElement('div');
-  userBubble.className = 'bubble from-user';
-  userBubble.textContent = text;
-  messages.appendChild(userBubble);
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bubble from-user';
+      userBubble.textContent = text;
+      messages.appendChild(userBubble);
 
-  const aiBubble = document.createElement('div');
-  aiBubble.className = 'bubble from-ai';
-  aiBubble.textContent = `Thinking...`;
-  messages.appendChild(aiBubble);
+      const aiBubble = document.createElement('div');
+      aiBubble.className = 'bubble from-ai';
+      aiBubble.textContent = `Thinking...`;
+      messages.appendChild(aiBubble);
 
-  input.value = '';
-  messages.scrollTop = messages.scrollHeight;
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
 
-  fetch("https://us-central1-ovie-fc407.cloudfunctions.net/chatWithAI", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: text, ai: currentAI })
-  })
-    .then(res => res.json())
-    .then(data => {
-      aiBubble.textContent = `${currentAI}: ${data.reply}`;
-    })
-    .catch(() => {
-      aiBubble.textContent = `${currentAI}: Something went wrong 😢`;
-    });
-}
-</script>
+      fetch("https://us-central1-ovie-fc407.cloudfunctions.net/chatWithAI", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, ai: currentAI })
+      })
+        .then(res => res.json())
+        .then(data => {
+          aiBubble.textContent = `${currentAI}: ${data.reply}`;
+        })
+        .catch(() => {
+          aiBubble.textContent = `${currentAI}: Something went wrong 😢`;
+        });
+    }
+  </script></body>
+</html>
