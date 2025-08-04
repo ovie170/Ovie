@@ -11,172 +11,76 @@
       background-color: #000;
       color: white;
       display: flex;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 220px;
-      height: 100vh;
-      background: #111;
-      padding: 2rem 1rem;
-      display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-      border-right: 1px solid #222;
+      height: 100vh;
     }
-    .logo {
-      font-size: 1.8rem;
+    header {
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.3rem;
       font-weight: bold;
       color: #00acee;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .logo img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-    .nav-link {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1rem;
-      text-align: left;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border-radius: 30px;
-    }
-    .nav-link:hover {
-      background: #222;
-    }
-    .main {
-      margin-left: 220px;
-      flex: 1;
-      padding: 2rem;
-    }
-    .rainbow-text {
-      font-size: 1.3rem;
-      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    .post-box {
-      background: #111;
-      padding: 1rem;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-    }
-    .post-box textarea {
-      width: 100%;
-      height: 80px;
-      border-radius: 10px;
-      padding: 0.8rem;
-      border: none;
-      resize: none;
-      background: #222;
-      color: white;
-      font-size: 1rem;
-    }
-    .post-btn {
-      margin-top: 1rem;
-      background: #00acee;
-      border: none;
-      padding: 10px 20px;
-      color: white;
-      border-radius: 30px;
-      cursor: pointer;
+      border-bottom: 1px solid #222;
     }
     .feed {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
     }
     .post {
       background: #111;
+      border-radius: 15px;
       padding: 1rem;
-      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    .post .info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 0.5rem;
+    .post h4 {
+      margin: 0;
+      color: #00acee;
     }
-    .post .info img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+    .post p {
+      margin-top: 0.5rem;
     }
-    .post .actions {
+    .bottom-nav {
+      background: #111;
       display: flex;
       justify-content: space-around;
-      margin-top: 10px;
+      align-items: center;
+      padding: 0.7rem 0;
+      border-top: 1px solid #222;
     }
-    .post .actions button {
-      background: none;
-      border: none;
-      color: #00acee;
-      cursor: pointer;
-    }
-    .popup {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background: #222;
+    .bottom-nav a {
       color: white;
-      padding: 10px 15px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      display: none;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .bottom-nav a.active {
+      color: #00acee;
     }
   </style>
 </head>
 <body>
-  <nav>
-    <div class="logo">
-      <img src="https://i.ibb.co/q9ChBRd/scary-mask-logo.png" alt="Mask Logo">
-      The Masks
+  <header>
+    <img src="https://i.ibb.co/1Tm5RnH/maskman.jpg" alt="The Masks Logo" style="width: 30px; vertical-align: middle; border-radius: 50%;"> 
+    <span style="margin-left: 10px;">The Masks</span>
+  </header>  <div class="feed">
+    <div class="post">
+      <h4>@ovie100</h4>
+      <p>Welcome to The Masks 🖤</p>
     </div>
-    <button class="nav-link" onclick="window.location.href='dashboard.html'">Home</button>
-    <button class="nav-link" onclick="window.location.href='profile.html'">Profile</button>
-    <button class="nav-link" onclick="window.location.href='chat.html'">Chat</button>
-    <button class="nav-link" onclick="alert('Notifications coming soon!')">Notifications</button>
-  </nav>  <div class="main">
-    <div class="rainbow-text">Entertainment. News. Exploring. Discovering. Learning</div><div class="post-box">
-  <textarea placeholder="What's happening?"></textarea>
-  <button class="post-btn">Post</button>
-</div>
-
-<div class="feed">
-  <div class="post">
-    <div class="info">
-      <img src="https://via.placeholder.com/40" alt="User">
-      <div><strong>@Zara</strong><br>Just dropped a fresh meme pack 🔥</div>
+    <div class="post">
+      <h4>@zara_tech</h4>
+      <p>Exploring the AI universe 🤖</p>
     </div>
-    <div class="actions">
-      <button>Like</button>
-      <button>Comment</button>
-      <button>Share</button>
+    <div class="post">
+      <h4>@maskman</h4>
+      <p>Darkness meets knowledge.</p>
     </div>
+  </div>  <div class="bottom-nav">
+    <a href="dashboard.html" class="active">🏠</a>
+    <a href="chat.html">💬</a>
+    <a href="profile.html">👤</a>
+    <a href="#">🔔</a>
   </div>
-
-  <div class="post">
-    <div class="info">
-      <img src="https://via.placeholder.com/40" alt="User">
-      <div><strong>@Blaze</strong><br>Check this chill playlist 😎</div>
-    </div>
-    <div class="actions">
-      <button>Like</button>
-      <button>Comment</button>
-      <button>Share</button>
-    </div>
-  </div>
-</div>
-
-  </div>  <div class="popup" id="popup">New notification!</div>
 </body>
 </html>
