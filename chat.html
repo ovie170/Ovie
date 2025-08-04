@@ -1,184 +1,45 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat - The Masks</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #000;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-    .chatbox {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1rem;
-      overflow: hidden;
-    }
-    .messages {
-      flex: 1;
-      overflow-y: auto;
-      padding-bottom: 1rem;
-    }
-    .bubble {
-      padding: 0.7rem 1rem;
-      border-radius: 20px;
-      max-width: 60%;
-      margin-bottom: 10px;
-      display: inline-block;
-    }
-    .from-ai {
-      background: #111;
-      align-self: flex-start;
-    }
-    .from-user {
-      background: #00acee;
-      color: white;
-      align-self: flex-end;
-    }
-    .input-area {
-      display: flex;
-      gap: 10px;
-    }
-    .input-area input {
-      flex: 1;
-      padding: 0.7rem;
-      border-radius: 20px;
-      border: none;
-      background: #1c1c1c;
-      color: white;
-    }
-    .input-area button {
-      background: #00acee;
-      border: none;
-      padding: 0.7rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-    .bottom-nav {
-      background: #111;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 0.7rem 0;
-      border-top: 1px solid #222;
-    }
-    .bottom-nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-    .bottom-nav a.active {
-      color: #00acee;
-    }
-    .chat-users {
-      display: flex;
-      overflow-x: auto;
-      background: #111;
-      padding: 0.5rem;
-      gap: 1rem;
-    }
-    .user {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      width: 60px;
-      font-size: 0.7rem;
-    }
-    .user img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 5px;
-    }
-  </style>
-</head>
-<body>
-  <div class="chat-users">
-    <div class="user" onclick="startChat('Nina the Explorer')">
-      <img src="https://i.ibb.co/LPsb4gC/nina.jpg" alt="Nina">
-      Nina
-    </div>
-    <div class="user" onclick="startChat('Blaze')">
-      <img src="https://i.ibb.co/MZbdQJg/blaze.jpg" alt="Blaze">
-      Blaze
-    </div>
-    <div class="user" onclick="startChat('TechWiz')">
-      <img src="https://i.ibb.co/yX0SqtT/techwiz.jpg" alt="TechWiz">
-      TechWiz
-    </div>
-    <div class="user" onclick="startChat('Zara')">
-      <img src="https://i.ibb.co/jRZzzd6/zara.jpg" alt="Zara">
-      Zara
-    </div>
-    <div class="user" onclick="startChat('Mask Man')">
-      <img src="https://i.ibb.co/1Tm5RnH/maskman.jpg" alt="Mask Man">
-      Mask
-    </div>
-  </div>
+﻿<script>
+let currentAI = null;
 
-  <div class="chatbox">
-    <div class="messages" id="messages">
-      <div class="bubble from-ai">Welcome! Pick someone to start chatting.</div>
-    </div>
-    <div class="input-area">
-      <input type="text" id="messageInput" placeholder="Type your message...">
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </div>
+function startChat(name) {
+  currentAI = name;
+  const messages = document.getElementById('messages');
+  messages.innerHTML = `
+    <div class='bubble from-ai'>Hi, I’m <strong>${name}</strong>. Let’s chat!</div>
+  `;
+}
 
-  <div class="bottom-nav">
-    <a href="dashboard.html">🏠</a>
-    <a href="chat.html" class="active">💬</a>
-    <a href="profile.html">👤</a>
-    <a href="#">🔔</a>
-  </div>
+function sendMessage() {
+  const input = document.getElementById('messageInput');
+  const text = input.value.trim();
+  if (!text || !currentAI) return;
 
-  <script>
-    let currentAI = null;
+  const messages = document.getElementById('messages');
 
-    function startChat(name) {
-      currentAI = name;
-      document.getElementById('messages').innerHTML = `
-        <div class='bubble from-ai'>Hi, I’m <strong>${name}</strong>. Let’s chat!</div>
-      `;
-    }
+  const userBubble = document.createElement('div');
+  userBubble.className = 'bubble from-user';
+  userBubble.textContent = text;
+  messages.appendChild(userBubble);
 
-    function sendMessage() {
-      const input = document.getElementById('messageInput');
-      const text = input.value.trim();
-      if (!text || !currentAI) return;
+  const aiBubble = document.createElement('div');
+  aiBubble.className = 'bubble from-ai';
+  aiBubble.textContent = `Thinking...`;
+  messages.appendChild(aiBubble);
 
-      const messages = document.getElementById('messages');
+  input.value = '';
+  messages.scrollTop = messages.scrollHeight;
 
-      const userBubble = document.createElement('div');
-      userBubble.className = 'bubble from-user';
-      userBubble.textContent = text;
-      messages.appendChild(userBubble);
-
-      const aiBubble = document.createElement('div');
-      aiBubble.className = 'bubble from-ai';
-      aiBubble.textContent = `${currentAI} is thinking...`;
-      messages.appendChild(aiBubble);
-
-      input.value = '';
-      messages.scrollTop = messages.scrollHeight;
-
-      setTimeout(() => {
-        aiBubble.textContent = `${currentAI}: That's interesting! Tell me more.`;
-      }, 1000);
-    }
-  </script>
-</body>
-</html>
-
+  fetch("https://us-central1-ovie-fc407.cloudfunctions.net/chatWithAI", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: text, ai: currentAI })
+  })
+    .then(res => res.json())
+    .then(data => {
+      aiBubble.textContent = `${currentAI}: ${data.reply}`;
+    })
+    .catch(() => {
+      aiBubble.textContent = `${currentAI}: Something went wrong 😢`;
+    });
+}
+</script>
