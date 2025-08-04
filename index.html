@@ -2,8 +2,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Ovie</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Dashboard - The Masks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -18,19 +18,24 @@
       background: #1a1a1a;
       padding: 1rem 2rem;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
     }
     .logo {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
       color: #00acee;
+    }
+    .user-info {
       display: flex;
       align-items: center;
+      gap: 10px;
     }
-    .logo::before {
-      content: "🎭";
-      margin-right: 10px;
+    .user-info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
     }
     .container {
       padding: 3rem 1rem;
@@ -72,16 +77,59 @@
     .chat-btn:hover {
       background: #008ecf;
     }
+    .profile-upload {
+      margin-top: 2rem;
+    }
+    .profile-upload input[type="file"] {
+      margin: 10px auto;
+      background: #fff;
+      color: #000;
+      border-radius: 5px;
+      padding: 5px;
+    }
   </style>
 </head>
 <body>
   <nav>
-    <div class="logo">Masks</div>
+    <div class="logo">🛡️ Iron Steel Mask</div>
+    <div class="user-info">
+      <span id="nicknameDisplay">Welcome</span>
+      <img id="profileImage" src="https://via.placeholder.com/40" alt="Profile">
+    </div>
   </nav>  <div class="container">
-    <div class="rainbow-text">Entertainment. News. Exploring. Discovering. Learning</div>
+    <div class="rainbow-text">Entertainment. News. Exploring. Discovering. Learning</div><div class="profile-upload">
+  <label for="upload">Upload Profile Picture:</label><br>
+  <input type="file" id="upload">
+</div>
+
   </div>  <div class="chat-buttons">
     <button class="chat-btn" onclick="window.open('https://chat.openai.com', '_blank')">💬 Ask The Mask Man</button>
-    <button class="chat-btn" onclick="alert('Coming soon: user-to-user chat')">👥 Chat With Others</button>
-  </div>
-</body>
+    <button class="chat-btn" onclick="window.location.href='chat.html'">👥 Chat With Others</button>
+  </div>  <script>
+    // Display nickname
+    const nickname = localStorage.getItem("nickname") || "Guest";
+    document.getElementById("nicknameDisplay").textContent = `Welcome, ${nickname}`;
+
+    // Profile image preview
+    const uploadInput = document.getElementById("upload");
+    const profileImage = document.getElementById("profileImage");
+
+    uploadInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          profileImage.src = event.target.result;
+          localStorage.setItem("profilePic", event.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Load saved profile image
+    const savedPic = localStorage.getItem("profilePic");
+    if (savedPic) {
+      profileImage.src = savedPic;
+    }
+  </script></body>
 </html>
