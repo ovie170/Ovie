@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Masks - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #000;
+      color: white;
+      display: flex;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background: #111;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      border-right: 1px solid #222;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #00acee;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .nav-link {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      text-align: left;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 30px;
+    }
+    .nav-link:hover {
+      background: #222;
+    }
+    .main {
+      margin-left: 220px;
+      flex: 1;
+      padding: 2rem;
+    }
+    .rainbow-text {
+      font-size: 1.3rem;
+      background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .post-box {
+      background: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    .post-box textarea {
+      width: 100%;
+      height: 80px;
+      border-radius: 10px;
+      padding: 0.8rem;
+      border: none;
+      resize: none;
+      background: #222;
+      color: white;
+      font-size: 1rem;
+    }
+    .post-btn {
+      margin-top: 1rem;
+      background: #00acee;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .post {
+      background: #111;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    .post .info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.5rem;
+    }
+    .post .info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .post .actions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+    .post .actions button {
+      background: none;
+      border: none;
+      color: #00acee;
+      cursor: pointer;
+    }
+    .popup {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: #222;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <img src="https://i.ibb.co/q9ChBRd/scary-mask-logo.png" alt="Mask Logo">
+      The Masks
+    </div>
+    <button class="nav-link" onclick="window.location.href='dashboard.html'">Home</button>
+    <button class="nav-link" onclick="window.location.href='profile.html'">Profile</button>
+    <button class="nav-link" onclick="window.location.href='chat.html'">Chat</button>
+    <button class="nav-link" onclick="alert('Notifications coming soon!')">Notifications</button>
+  </nav>  <div class="main">
+    <div class="rainbow-text">Entertainment. News. Exploring. Discovering. Learning</div><div class="post-box">
+  <textarea placeholder="What's happening?"></textarea>
+  <button class="post-btn">Post</button>
+</div>
+
+<div class="feed">
+  <div class="post">
+    <div class="info">
+      <img src="https://via.placeholder.com/40" alt="User">
+      <div><strong>@Zara</strong><br>Just dropped a fresh meme pack 🔥</div>
+    </div>
+    <div class="actions">
+      <button>Like</button>
+      <button>Comment</button>
+      <button>Share</button>
+    </div>
+  </div>
+
+  <div class="post">
+    <div class="info">
+      <img src="https://via.placeholder.com/40" alt="User">
+      <div><strong>@Blaze</strong><br>Check this chill playlist 😎</div>
+    </div>
+    <div class="actions">
+      <button>Like</button>
+      <button>Comment</button>
+      <button>Share</button>
+    </div>
+  </div>
+</div>
+
+  </div>  <div class="popup" id="popup">New notification!</div>
+</body>
+</html>
