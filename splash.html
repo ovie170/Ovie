@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Masks - Loading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #00acee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      flex-direction: column;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      background-image: url('https://i.ibb.co/7zQDMHg/mask-icon.png'); /* mask logo */
+      background-size: cover;
+      border-radius: 50%;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    .text {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body onload="redirectToChat()">
+  <div class="logo"></div>
+  <div class="text">Loading Masks Chat...</div>
+
+  <script>
+    function redirectToChat() {
+      setTimeout(() => {
+        window.location.href = "chat-list.html"; // Redirects to chat list after 3s
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
